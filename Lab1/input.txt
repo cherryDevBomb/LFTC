@@ -1,0 +1,21 @@
+//this example was taken from https://en.wikipedia.org/wiki/PL/0
+
+VAR x, squ;
+
+PROCEDURE square;
+BEGIN
+   squ:= x * x
+END;
+
+BEGIN
+   //some dummy variables for testing
+   dummy1 := 99;
+   dummy2 := 100;
+   x := 0.1;
+   WHILE x <= 10 DO
+   BEGIN
+      CALL square;
+      ! squ;
+      x := x + 1.1
+   END //hhh
+END.
