@@ -4,6 +4,13 @@ class Node:
         self.is_start = False
         self.is_end = False
 
+    def __eq__(self, other):
+        if isinstance(other, Node):
+            return self.id == other.id
+
+    def __hash__(self):
+        return hash(self.id)
+
 
 class Edge:
     def __init__(self, start_node, end_node, label):

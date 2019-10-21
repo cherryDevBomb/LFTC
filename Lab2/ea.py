@@ -5,6 +5,7 @@ class EA:
     def __init__(self):
         self.nodes = []
         self.edges = []
+        self.edge_labels = []
 
     def read_ea(self, filename):
         with open(filename) as input:
@@ -18,6 +19,7 @@ class EA:
 
             # third line is list of edge labels
             list_of_edge_labels = input.readline().strip().split()
+            self.edge_labels = list_of_edge_labels
 
             # fourth line is number of edges
             number_of_edges = int(input.readline().strip())
@@ -82,6 +84,11 @@ class EA:
     def get_start_node(self):
         for node in self.nodes:
             if node.is_start:
+                return node
+
+    def get_node_by_id(self, id_str):
+        for node in self.nodes:
+            if str(node.id)  == id_str:
                 return node
 
     def accept_string(self, string):

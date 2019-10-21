@@ -1,0 +1,19 @@
+10
+3
+a b c
+12
+0 1 a
+1 2 epsilon
+2 3 epsilon
+2 9 epsilon
+3 4 epsilon
+3 6 epsilon
+4 5 b
+5 8 epsilon
+6 7 c
+7 8 epsilon
+8 3 epsilon
+8 9 epsilon
+0
+1
+9
