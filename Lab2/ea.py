@@ -86,6 +86,13 @@ class EA:
             if node.is_start:
                 return node
 
+    def get_end_nodes(self):
+        end_nodes = []
+        for node in self.nodes:
+            if node.is_end:
+                end_nodes.append(node)
+        return end_nodes
+
     def get_node_by_id(self, id_str):
         for node in self.nodes:
             if str(node.id)  == id_str:
