@@ -1,0 +1,9 @@
+2
+1
+symbol
+2
+0 1 symbol
+1 1 symbol
+0
+1
+1

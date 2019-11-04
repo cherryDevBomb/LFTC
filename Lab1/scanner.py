@@ -57,14 +57,14 @@ class Scanner:
 
                 line = line.strip()
                 if len(line) > 0:
-                    line_tokens = self.tokenize(line, line_nr)
+                    line_tokens = self.tokenize(line)
                     self.tokens.append(line_tokens)
 
                 # go to next line
                 line = input.readline()
                 line_nr += 1
 
-    def tokenize(self, line, line_nr):
+    def tokenize(self, line):
         line_tokens = []
         while len(line) > 0:
             is_keyword = re.match(self.keyword_pattern, line)
@@ -76,27 +76,27 @@ class Scanner:
 
             if is_keyword:
                 content = is_keyword.group()
-                line_tokens.append(Token(TokenType.KEYWORD, content, line_nr))
+                line_tokens.append(Token(TokenType.KEYWORD, content))
                 line = line[len(content):].strip()
             elif is_identifier:
                 content = is_identifier.group()
-                line_tokens.append(Token(TokenType.IDENTIFIER, content, line_nr))
+                line_tokens.append(Token(TokenType.IDENTIFIER, content))
                 line = line[len(content):].strip()
             elif is_operator:
                 content = is_operator.group()
-                line_tokens.append( Token(TokenType.OPERATOR, content, line_nr))
+                line_tokens.append( Token(TokenType.OPERATOR, content))
                 line = line[len(content):].strip()
             elif is_float:
                 content = is_float.group()
-                line_tokens.append(Token(TokenType.FLOAT, content, line_nr))
+                line_tokens.append(Token(TokenType.FLOAT, content))
                 line = line[len(content):].strip()
             elif is_int:
                 content = is_int.group()
-                line_tokens.append(Token(TokenType.INTEGER, content, line_nr))
+                line_tokens.append(Token(TokenType.INTEGER, content))
                 line = line[len(content):].strip()
             elif is_unknown:
                 content = is_unknown.group()
-                line_tokens.append(Token(TokenType.UNKNOWN, content, line_nr))
+                line_tokens.append(Token(TokenType.UNKNOWN, content))
                 line = line[len(content):].strip()
 
         return line_tokens

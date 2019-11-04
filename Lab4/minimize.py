@@ -1,13 +1,11 @@
 from Lab3.neatodea import *
 
-final_partitions = []
-
 
 def hopcroft(dea):
     print('{:50}'.format("Current partition"), end=' | ')
     print('{:20}'.format("Set"), end=' | ')
     print('{:4}'.format("Char"), end=' | ')
-    print('{:30}'.format("Action"))
+    print('{:40}'.format("Action"))
 
     dea_end_nodes = dea.get_end_nodes()
     other_nodes = list(set(dea.nodes) - (set(dea_end_nodes)))
@@ -42,11 +40,11 @@ def split(dea, partitions, end_partitions, s):
                 target_map[str(target_partition)] = []
             target_map[str(target_partition)].append(node)
         # return when split found
-        if len(target_map) == 2:
-            print('{:30}'.format('split into' + str(list(target_map.values()))))
+        if len(target_map) > 1:
+            print('{:40}'.format('split into' + str(list(target_map.values()))))
             break
         else:
-            print('{:30}'.format('none'))
+            print('{:40}'.format('none'))
 
     return list(target_map.values())
 
@@ -93,7 +91,7 @@ def build_min_dea(initial_dea, partitions):
 
 if __name__ == "__main__":
     dea = EA()
-    dea.read_ea("input6.txt")
+    dea.read_ea("input5.txt")
 
     partitions = hopcroft(dea)
     min_dea = build_min_dea(dea, partitions)

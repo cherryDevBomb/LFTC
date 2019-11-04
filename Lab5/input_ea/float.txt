@@ -1,0 +1,12 @@
+4
+2
+digit dot
+5
+0 1 digit
+1 1 digit
+1 2 dot
+2 3 digit
+3 3 digit
+0
+1
+3

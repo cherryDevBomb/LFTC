@@ -1,0 +1,7 @@
+alpha	digit	
+2
+1	err	
+1	1	
+1	
+abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
+0123456789

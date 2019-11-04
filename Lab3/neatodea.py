@@ -19,14 +19,11 @@ def delta(ea, z, c):
     delta_result = []
 
     for node in z:
-        queue = [node]
-        while len(queue) > 0:
-            current_node = queue.pop()
-            for edge in ea.edges:
-                if int(edge.start_node) == current_node.id:
-                    if edge.label == c:
-                        queue.append(ea.get_node_by_id(edge.end_node))
-                        delta_result.append(ea.get_node_by_id(edge.end_node))
+        current_node = node
+        for edge in ea.edges:
+            if int(edge.start_node) == current_node.id:
+                if edge.label == c:
+                    delta_result.append(ea.get_node_by_id(edge.end_node))
     return list(set(delta_result))
 
 

@@ -1,0 +1,11 @@
+3
+2
+digit1_9 zero
+4
+0 1 digit1_9
+0 2 zero
+1 1 zero
+1 1 digit1_9
+0
+2
+1 2
