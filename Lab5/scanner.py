@@ -80,27 +80,27 @@ if __name__ == "__main__":
 
     ea_comment = EA()
     ea_comment.read_ea("input_ea/comment.txt")
-    comment_table = create_scanner_table(ea_comment, "output_tables/comment.txt")
+    comment_table = create_scanner_table(ea_comment, "output_tables/comment.tab")
     table_dictionary[7] = comment_table 
 
     ea_float = EA()
     ea_float.read_ea("input_ea/float.txt")
-    float_table = create_scanner_table(ea_float, "output_tables/float.txt")
+    float_table = create_scanner_table(ea_float, "output_tables/float.tab")
     table_dictionary[5] = float_table
 
     ea_identifier = EA()
     ea_identifier.read_ea("input_ea/identifier.txt")
-    identifier_table = create_scanner_table(ea_identifier, "output_tables/identifier.txt")
+    identifier_table = create_scanner_table(ea_identifier, "output_tables/identifier.tab")
     table_dictionary[2] = identifier_table
 
     ea_integer = EA()
     ea_integer.read_ea("input_ea/integer.txt")
-    integer_table = create_scanner_table(ea_integer, "output_tables/integer.txt")
+    integer_table = create_scanner_table(ea_integer, "output_tables/integer.tab")
     table_dictionary[4] = integer_table
 
     ea_operator = EA()
     ea_operator.read_ea("input_ea/operator.txt")
-    operator_table = create_scanner_table(ea_operator, "output_tables/operator.txt")
+    operator_table = create_scanner_table(ea_operator, "output_tables/operator.tab")
     table_dictionary[3] = operator_table
 
     # parse program and print tokens

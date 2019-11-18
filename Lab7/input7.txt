@@ -1,0 +1,18 @@
+Goal
+Goal
+| Expr
+
+Expr
+| Expr + Term
+| Expr - Term
+| Term
+
+Term
+| Term * Factor
+| Term / Factor
+| Factor
+
+Factor
+| ( Expr )
+| num
+| name
