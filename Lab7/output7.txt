@@ -1,10 +1,5 @@
-A
-A
-| x A
-| x B
-| x
-
-B
-| z B
-| z
+F
+F
+| F a
+| b
 

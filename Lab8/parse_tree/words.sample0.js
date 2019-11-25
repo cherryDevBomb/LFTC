@@ -1,0 +1,15 @@
+nodeDataArray = [
+{ key: 12, text: "c", fill: "#f8f8f8", stroke: "#4d90fe", parent: 11 },
+{ key: 11, text: "c", fill: "#ccc", stroke: "#4d90fe", parent: 0 },
+{ key: 10, text: "a", fill: "#f8f8f8", stroke: "#4d90fe", parent: 9 },
+{ key: 9, text: "a", fill: "#ccc", stroke: "#4d90fe", parent: 1 },
+{ key: 8, text: "a", fill: "#f8f8f8", stroke: "#4d90fe", parent: 7 },
+{ key: 7, text: "a", fill: "#ccc", stroke: "#4d90fe", parent: 2 },
+{ key: 6, text: "b", fill: "#f8f8f8", stroke: "#4d90fe", parent: 5 },
+{ key: 5, text: "b", fill: "#ccc", stroke: "#4d90fe", parent: 2 },
+{ key: 4, text: "EPSILON", fill: "#f8f8f8", stroke: "#4d90fe", parent: 3 },
+{ key: 3, text: "S2", fill: "#f68c06", stroke: "#4d90fe", parent: 2 },
+{ key: 2, text: "S2", fill: "#f68c06", stroke: "#4d90fe", parent: 1 },
+{ key: 1, text: "S2", fill: "#f68c06", stroke: "#4d90fe", parent: 0 },
+{ key: 0, text: "S", fill: "#f68c06", stroke: "#4d90fe" },
+]

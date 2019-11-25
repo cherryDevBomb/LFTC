@@ -80,27 +80,55 @@ class KFG:
         right_flag = None
         for rule_list in self.production_rules.values():
             for rule in rule_list:
-                rhs_number_of_non_terminals = sum(1 for elem in rule if elem in self.non_terminals)
-                # more than one non-terminal in the right hand side of rule
-                if rhs_number_of_non_terminals > 1:
-                    return False
-                else:
-                    rhs_non_terminal = next((elem for elem in rule if elem in self.non_terminals), None)
-                    if rhs_non_terminal is None:
-                        continue
-                    position_of_non_terminal = rule.index(rhs_non_terminal)
-                    if position_of_non_terminal == 0:
-                        left_flag = True
-                    elif position_of_non_terminal == len(rule) - 1:
-                        right_flag = True
-                    # non-terminal in the middle of rule
-                    else:
+                if len(rule) > 1:
+                    rhs_number_of_non_terminals = sum(1 for elem in rule if elem in self.non_terminals)
+                    # more than one non-terminal in the right hand side of rule
+                    if rhs_number_of_non_terminals > 1:
                         return False
-                # non-terminals are placed in different sides of rules
-                if left_flag and right_flag:
-                    return False
+                    else:
+                        rhs_non_terminal = next((elem for elem in rule if elem in self.non_terminals), None)
+                        if rhs_non_terminal is None:
+                            continue
+                        position_of_non_terminal = rule.index(rhs_non_terminal)
+                        if position_of_non_terminal == 0:
+                            left_flag = True
+                        elif position_of_non_terminal == len(rule) - 1:
+                            right_flag = True
+                        # non-terminal in the middle of rule
+                        else:
+                            return False
+                    # non-terminals are placed in different sides of rules
+                    if left_flag and right_flag:
+                        return False
 
         return True
+
+    def eliminate_left_recursion(self):
+        non_term = self.non_terminals
+        for i in range(0, len(non_term)):
+            for j in range(0, i-1):
+                rewritten_rules_i = []
+                for r in range(len(self.production_rules[non_term[i]])):
+                    rule = self.production_rules[non_term[i]][r]
+                    if rule[0] == non_term[j]:
+                        for j_rule in self.production_rules[non_term[j]]:
+                            new_rule_j = [j_rule]
+                            new_rule_j.extend(rule[1:])
+                            rewritten_rules_i.append(new_rule_j)
+            for r2 in range(len(rewritten_rules_i)):
+                if non_term[i] == rewritten_rules_i[r2][0]:
+                    new_non_term = non_term[0] + "2"
+                    new_rule = [x for x in rewritten_rules_i[-1]]
+                    new_rule.extend(new_non_term)
+                    self.production_rules[non_term[i]] = [new_rule]
+
+                    new_non_term_rules = []
+                    for rule2 in rewritten_rules_i[:-1]:
+                        rule3 = rule2[1:]
+                        rule3.extend(new_non_term)
+                        new_non_term_rules.append(rule3)
+                    new_non_term_rules.append("EPSILON")
+                    self.production_rules[new_non_term] = new_non_term_rules
 
 
 if __name__ == "__main__":
@@ -110,4 +138,7 @@ if __name__ == "__main__":
     kfg.export_as_json()
     print(kfg.production_rules)
 
-    print("KFG is regular: " + str(kfg.is_regular()))
+    # kfg.eliminate_left_recursion()
+    # print(kfg.production_rules)
+
+    # print("KFG is regular: " + str(kfg.is_regular()))

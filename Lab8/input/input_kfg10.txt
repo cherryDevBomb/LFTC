@@ -1,0 +1,8 @@
+S
+S
+| c S2
+
+S2
+| a b S2
+| a S2
+| EPSILON

@@ -1,0 +1,13 @@
+Goal
+Goal
+| List
+
+List
+| Pair
+| List Pair
+| EPSILON
+
+Pair
+| ( )
+| ( Pair )
+| EPSILON
