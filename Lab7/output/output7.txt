@@ -1,0 +1,25 @@
+Goal
+Goal
+| Expr
+
+Expr
+| Term Expr^
+
+Term
+| Factor Term^
+
+Factor
+| ( Expr )
+| num
+| name
+
+Expr^
+| + Term Expr^
+| - Term Expr^
+| EPSILON
+
+Term^
+| * Factor Term^
+| / Factor Term^
+| EPSILON
+
