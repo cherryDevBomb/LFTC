@@ -196,7 +196,7 @@ class KFG:
     def eliminate_left_recursion(self):
         for i in range(0, len(self.non_terminals)):
             current_nt_rules = self.production_rules[self.non_terminals[i]]
-            for j in range(0, i-1):
+            for j in range(0, i):
                 for rhs in current_nt_rules:
                     # if there is a production Ai -> Aj a, replace it with productions that expand Aj
                     if rhs[0] == self.non_terminals[j]:
@@ -233,17 +233,17 @@ class KFG:
 
 if __name__ == "__main__":
     # to test FIRST and FOLLOW sets:
-    # kfg = KFG()
-    # kfg.read("input/input_kfg10.txt")
-    #
-    # kfg.first_sets = kfg.compute_first_sets()
-    # print("First sets are: " + str(kfg.first_sets))
-    # kfg.follow_sets = kfg.compute_follow_sets()
-    # print("Follow sets are: " + str(kfg.follow_sets))
-    # print("KFG is LL(1)") if kfg.is_LL1() else print("KFG is not LL(1)")
+    kfg = KFG()
+    kfg.read("input/input_kfg9.txt")
+
+    kfg.first_sets = kfg.compute_first_sets()
+    print("First sets are: " + str(kfg.first_sets))
+    kfg.follow_sets = kfg.compute_follow_sets()
+    print("Follow sets are: " + str(kfg.follow_sets))
+    print("KFG is LL(1)") if kfg.is_LL1() else print("KFG is not LL(1)")
 
     # to test elimination of left recursion
-    kfg = KFG()
-    kfg.read("input/input7.txt")
-    kfg.eliminate_left_recursion()
-    kfg.write("output/output7.txt")
+    # kfg = KFG()
+    # kfg.read("input/input8.txt")
+    # kfg.eliminate_left_recursion()
+    # kfg.write("output/output8.txt")

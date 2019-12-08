@@ -1,4 +1,7 @@
-Expr
+Goal
+Goal
+| Expr
+
 Expr
 | Term Expr2
 
@@ -16,13 +19,6 @@ Term2
 | EPSILON
 
 Factor
+| ( Expr )
+| number
 | ident
-| ident [ ArgList ]
-| ident ( ArgList )
-
-ArgList
-| Expr MoreArgs
-
-MoreArgs
-| . Expr MoreArgs
-| EPSILON

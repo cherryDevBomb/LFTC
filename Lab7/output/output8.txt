@@ -1,8 +1,11 @@
 F
 F
-| b F^
+| A a
 
-F^
-| a F^
+A
+| b A^
+
+A^
+| a A^
 | EPSILON
 
