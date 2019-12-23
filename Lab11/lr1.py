@@ -7,17 +7,8 @@ class LR1:
 
     def __init__(self, kfg, table):
         self.kfg = kfg
-        self.rule_indices = self.compute_rule_indices(kfg)
         self.table = table
-
-    def compute_rule_indices(self, kfg):
-        rule_indices = {}
-        index = 1
-        for non_terminal in kfg.production_rules.keys():
-            for rule in kfg.production_rules[non_terminal]:
-                rule_indices[index] = (non_terminal, rule)
-                index += 1
-        return rule_indices
+        kfg.compute_rule_indices()
 
     def parse(self, token_stream):
         stack = [0]
@@ -30,7 +21,7 @@ class LR1:
             if self.table.action[word][state][0] == 'r':
                 print('Action: ' + self.table.action[word][state])
                 rule_index = int(self.table.action[word][state][1:])
-                production = self.rule_indices[rule_index]
+                production = self.kfg.rule_indices[rule_index]
                 for i in range(2 * len(production[1])):
                     stack.pop()
                 state = stack[-1]

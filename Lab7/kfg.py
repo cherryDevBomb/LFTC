@@ -12,6 +12,7 @@ class KFG:
         self.first_sets = None
         self.follow_sets = None
         self.first_for_separate_rules = None
+        self.rule_indices = None
 
     def read(self, filename):
         all_symbols = []
@@ -146,6 +147,7 @@ class KFG:
                             has_new_change = True
 
         self.first_for_separate_rules = first_for_separate_rules
+        self.first_sets = first_sets
         return first_sets
 
     def compute_follow_sets(self):
@@ -192,6 +194,15 @@ class KFG:
             return self.first_for_separate_rules[str(beta)]
         else:
             return union(self.first_for_separate_rules[str(beta)], self.follow_sets[non_terminal])
+
+    def compute_rule_indices(self):
+        rule_indices = {}
+        index = 1
+        for non_terminal in self.production_rules.keys():
+            for rule in self.production_rules[non_terminal]:
+                rule_indices[index] = (non_terminal, rule)
+                index += 1
+        self.rule_indices = rule_indices
 
     def eliminate_left_recursion(self):
         for i in range(0, len(self.non_terminals)):
