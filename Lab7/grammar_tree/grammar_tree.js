@@ -1,7 +1,3 @@
-/*
-    source: I started with this example http://mbostock.github.io/d3/talk/20111018/tree.html
-*/
-
 // The actual tree data is in sample...js
 //--------------------------------------------------------
 

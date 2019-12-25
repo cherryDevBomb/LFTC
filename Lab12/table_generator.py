@@ -31,7 +31,7 @@ class TableGenerator:
 
         return list(set(s))
 
-    
+
 
     def first(self, symbol_set):
         first_set = []

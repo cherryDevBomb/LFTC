@@ -1,15 +1,15 @@
-from Lab3.neatodea import *
+from Lab3.nfa_to_dfa import *
 
 
-def hopcroft(dea):
+def hopcroft(dfa):
     print('{:50}'.format("Current partition"), end=' | ')
     print('{:20}'.format("Set"), end=' | ')
     print('{:4}'.format("Char"), end=' | ')
     print('{:40}'.format("Action"))
 
-    dea_end_nodes = dea.get_end_nodes()
-    other_nodes = list(set(dea.nodes) - (set(dea_end_nodes)))
-    partitions = [dea_end_nodes, other_nodes]
+    dfa_end_nodes = dfa.get_end_nodes()
+    other_nodes = list(set(dfa.nodes) - (set(dfa_end_nodes)))
+    partitions = [dfa_end_nodes, other_nodes]
     end_partitions = []
 
     while partitions != end_partitions:
@@ -17,15 +17,15 @@ def hopcroft(dea):
         end_partitions = partitions
         partitions = []
         for p_set in end_partitions:
-            split_result = split(dea, partitions, end_partitions, p_set)
+            split_result = split(dfa, partitions, end_partitions, p_set)
             partitions = partitions + split_result
 
     return end_partitions
 
 
-def split(dea, partitions, end_partitions, s):
+def split(dfa, partitions, end_partitions, s):
     target_map = {}
-    for c in dea.edge_labels:
+    for c in dfa.edge_labels:
         print('{:50}'.format(str(end_partitions)), end=' | ')
         print('{:20}'.format(str(s)), end=' | ')
         print('{:4}'.format(c), end=' | ')
@@ -33,7 +33,7 @@ def split(dea, partitions, end_partitions, s):
         target_map = {}
         for node in s:
             target_partition = []
-            for edge in dea.edges:
+            for edge in dfa.edges:
                 if int(edge.start_node) == node.id and edge.label == c:
                     target_partition = get_target_partition(partitions, int(edge.end_node))
             if str(target_partition) not in target_map.keys():
@@ -56,7 +56,7 @@ def get_target_partition(partitions, node_id):
                 return p
 
 
-def build_min_dea(initial_dea, partitions):
+def build_min_dfa(initial_dfa, partitions):
     new_edges = []
     new_nodes_map = {}
     i = 0
@@ -71,7 +71,7 @@ def build_min_dea(initial_dea, partitions):
             if node.is_end:
                 part_node.is_end = True
 
-            for edge in initial_dea.edges:
+            for edge in initial_dfa.edges:
                 if int(edge.start_node) == node.id:
                     target_part = get_target_partition(partitions, int(edge.end_node))
                     new_edge = Edge(str(part_node.id), str(target_part), edge.label)
@@ -82,23 +82,18 @@ def build_min_dea(initial_dea, partitions):
         end_part = e.end_node
         e.end_node = str(new_nodes_map[end_part].id)
 
-    final_min_dea = EA()
-    final_min_dea.nodes = list(new_nodes_map.values())
-    final_min_dea.edges = list(set(new_edges))
-    final_min_dea.edge_labels = initial_dea.edge_labels
-    return final_min_dea
+    final_min_dfa = FA()
+    final_min_dfa.nodes = list(new_nodes_map.values())
+    final_min_dfa.edges = list(set(new_edges))
+    final_min_dfa.edge_labels = initial_dfa.edge_labels
+    return final_min_dfa
 
 
 if __name__ == "__main__":
-    dea = EA()
-    dea.read_ea("input5.txt")
+    dfa = FA()
+    dfa.read_fa("input/input5.txt")
 
-    partitions = hopcroft(dea)
-    min_dea = build_min_dea(dea, partitions)
+    partitions = hopcroft(dfa)
+    min_dfa = build_min_dfa(dfa, partitions)
 
-    # export as json
-    print()
-    print(min_dea.export_nodes_as_json())
-    print()
-    print(min_dea.export_edges_as_json())
-    print()
+    min_dfa.export_as_json()

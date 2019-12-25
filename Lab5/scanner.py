@@ -1,5 +1,5 @@
 from Lab1.mytoken import Token, TokenType
-from Lab2.ea import EA
+from Lab2.fa import FA
 from Lab5.characters import Characters
 from Lab5.generate_table import create_scanner_table
 
@@ -78,33 +78,33 @@ if __name__ == "__main__":
     # saves each created table to corresponding TokenType index
     table_dictionary = {}
 
-    ea_comment = EA()
-    ea_comment.read_ea("input_ea/comment.txt")
-    comment_table = create_scanner_table(ea_comment, "output_tables/comment.tab")
+    fa_comment = FA()
+    fa_comment.read_fa("input/comment.txt")
+    comment_table = create_scanner_table(fa_comment, "output_tables/comment.tab")
     table_dictionary[7] = comment_table 
 
-    ea_float = EA()
-    ea_float.read_ea("input_ea/float.txt")
-    float_table = create_scanner_table(ea_float, "output_tables/float.tab")
+    fa_float = FA()
+    fa_float.read_fa("input/float.txt")
+    float_table = create_scanner_table(fa_float, "output_tables/float.tab")
     table_dictionary[5] = float_table
 
-    ea_identifier = EA()
-    ea_identifier.read_ea("input_ea/identifier.txt")
-    identifier_table = create_scanner_table(ea_identifier, "output_tables/identifier.tab")
+    fa_identifier = FA()
+    fa_identifier.read_fa("input/identifier.txt")
+    identifier_table = create_scanner_table(fa_identifier, "output_tables/identifier.tab")
     table_dictionary[2] = identifier_table
 
-    ea_integer = EA()
-    ea_integer.read_ea("input_ea/integer.txt")
-    integer_table = create_scanner_table(ea_integer, "output_tables/integer.tab")
+    fa_integer = FA()
+    fa_integer.read_fa("input/integer.txt")
+    integer_table = create_scanner_table(fa_integer, "output_tables/integer.tab")
     table_dictionary[4] = integer_table
 
-    ea_operator = EA()
-    ea_operator.read_ea("input_ea/operator.txt")
-    operator_table = create_scanner_table(ea_operator, "output_tables/operator.tab")
+    fa_operator = FA()
+    fa_operator.read_fa("input/operator.txt")
+    operator_table = create_scanner_table(fa_operator, "output_tables/operator.tab")
     table_dictionary[3] = operator_table
 
     # parse program and print tokens
-    program = Characters("input.txt")
+    program = Characters("input/input.txt")
     scanner = Scanner(table_dictionary)
     tokens = scanner.parse(program)
     for token in tokens:

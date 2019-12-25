@@ -30,9 +30,7 @@ class Scanner:
         "NOT": "!"
     }
 
-    def __init__(self, filename):
-        self.filename = filename
-
+    def __init__(self):
         self.comment_pattern = "//.*"
         self.identifier_pattern = "^[a-zA-Z_]\w*"
         self.int_pattern = "^[1-9]{1}[0-9]*|^0"
@@ -46,9 +44,9 @@ class Scanner:
             keyword_pattern += "|^"
         self.keyword_pattern = keyword_pattern[:-2]
 
-    def scan(self):
+    def scan(self, filepath):
         line_nr = 1
-        with open(self.filename) as input:
+        with open(filepath) as input:
             line = input.readline()
             while line:
                 # match comment
@@ -101,8 +99,8 @@ class Scanner:
 
         return line_tokens
 
-    def print_output_to_file(self):
-        out = open("output.txt", "w+")
+    def print_output_to_file(self, filepath):
+        out = open(filepath, "w+")
         for line in self.tokens:
             for token in line:
                 out.write(str(token) + " ")
@@ -117,7 +115,7 @@ class Scanner:
 
 
 if __name__ == "__main__":
-    scanner = Scanner("input.txt")
-    scanner.scan()
-    scanner.print_output_to_file()
+    scanner = Scanner()
+    scanner.scan("input/input.txt")
+    scanner.print_output_to_file("output/output.txt")
     scanner.print_output()

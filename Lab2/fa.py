@@ -1,14 +1,15 @@
+from Lab2.edge import Edge
 from Lab2.node import *
 
 
-class EA:
+class FA:
     def __init__(self):
         self.nodes = []
         self.edges = []
         self.edge_labels = []
 
-    def read_ea(self, filename):
-        with open(filename) as input:
+    def read_fa(self, filepath):
+        with open(filepath) as input:
             # first line is number of nodes
             number_of_nodes = int(input.readline().strip())
             for i in range (0, number_of_nodes):
@@ -42,8 +43,8 @@ class EA:
             for n in end_nodes:
                 self.nodes[int(n)].is_end = True
 
-    def write_ea(self):
-        out = open("output3.txt", "w+")
+    def write_fa(self, filepath):
+        out = open(filepath, "w+")
 
         # first line is number of nodes
         number_of_nodes = len(self.nodes)
@@ -114,7 +115,6 @@ class EA:
             index += 1
         return True
 
-
     def export_nodes_as_json(self):
         nodes_list = []
         for node in self.nodes:
@@ -122,14 +122,15 @@ class EA:
             node_data += "label: 's" + str(node.id) + "', "
             node_data += "color: "
             if node.is_start:
-                node_data += "startColor"
+                node_data += "'#ff5530'"
             elif node.is_end:
-                node_data += "acceptColor"
+                node_data += "'#7BE141'"
             else:
-                node_data += "nodeColor"
+                node_data += "'#98caf9'"
             node_data += " }"
             nodes_list.append(node_data)
-        nodes_json = ",\n".join(nodes_list)
+
+        nodes_json = "nodes_json = [\n" + ",\n".join(nodes_list) + "\n]\n"
         return nodes_json
 
     def export_edges_as_json(self):
@@ -138,25 +139,34 @@ class EA:
             edge_data = "{ from: " + edge.start_node + ", "
             edge_data += "to: " + edge.end_node + ", "
             edge_data += "arrows: 'to', "
-            edge_data += "color: { color: edgeColor }, "
+            edge_data += "color: { color: " + "'#008fe6'" + " }, "
             edge_data += "label: '" + edge.label + "', font: { align: 'middle' }  }"
             edges_list.append(edge_data)
-        edges_json = ",\n".join(edges_list)
+
+        edges_json = "edges_json = [\n" + ",\n".join(edges_list) + "\n]\n"
         return edges_json
+
+    def export_as_json(self):
+        json_nodes = self.export_nodes_as_json()
+        json_edges = self.export_edges_as_json()
+        with open("finite_automata/data.js") as content_js:
+            content = "".join(content_js.readlines())
+
+        with open("finite_automata/graph.js", "w+") as output:
+            output.write(json_nodes)
+            output.write(json_edges)
+            output.write(content)
 
 
 if __name__ == "__main__":
-    ea = EA()
-    ea.read_ea("input3.txt")
-    ea.write_ea()
+    fa = FA()
+    fa.read_fa("input/input3.txt")
+    fa.write_fa("output/output3.txt")
 
     # export as json
-    print(ea.export_nodes_as_json())
-    print()
-    print(ea.export_edges_as_json())
-    print()
+    fa.export_as_json()
 
     # test accept string
-    print(ea.accept_string("abc"))
-    print(ea.accept_string("abacc"))
-    print(ea.accept_string("aca"))
+    print(fa.accept_string("abc"))
+    print(fa.accept_string("abacc"))
+    print(fa.accept_string("aca"))

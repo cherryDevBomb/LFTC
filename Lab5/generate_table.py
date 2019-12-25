@@ -1,4 +1,4 @@
-from Lab3.neatodea import delta
+from Lab3.nfa_to_dfa import delta
 from Lab5.scanner_table import ScannerTable
 
 
