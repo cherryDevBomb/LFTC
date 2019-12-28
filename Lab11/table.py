@@ -22,3 +22,16 @@ class LRTable:
                 column = input.readline().strip().split(" ")
                 self.goto[symbol] = column
                 line = input.readline().strip()
+
+    def write_to_file(self, filename):
+        out = open(filename, "w+")
+        for t, column in self.action.items():
+            out.write(str(t) + '\n')
+            out.write(' '.join(column))
+            out.write('\n')
+        out.write('\n')
+        goto = list(self.goto.items())
+        for tuple in goto[1:]:
+            out.write(str(tuple[0]) + '\n')
+            out.write(' '.join(tuple[1]))
+            out.write('\n')

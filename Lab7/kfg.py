@@ -204,6 +204,11 @@ class KFG:
                 index += 1
         self.rule_indices = rule_indices
 
+    def get_index_of_rule(self, rule):
+        for index, p in self.rule_indices.items():
+            if rule == p:
+                return index
+
     def eliminate_left_recursion(self):
         for i in range(0, len(self.non_terminals)):
             current_nt_rules = self.production_rules[self.non_terminals[i]]
