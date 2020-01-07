@@ -16,4 +16,4 @@ class LR1Item:
         return "[" + self.production[0] + ' -> ' + ' '.join(self.production[1][:self.stacktop_position]) + " * " + ' '.join(self.production[1][self.stacktop_position:]) + ', ' + str(self.lookahead) + ']'
 
     def __repr__(self):
-        return self.production[0] + ' -> ' + ' '.join(self.production[1][:self.stacktop_position]) + " * " + ' '.join(self.production[1][self.stacktop_position:]) + ', ' + str(self.lookahead) + ']'
+        return "[" + self.production[0] + ' -> ' + ' '.join(self.production[1][:self.stacktop_position]) + " * " + ' '.join(self.production[1][self.stacktop_position:]) + ', ' + str(self.lookahead) + ']'

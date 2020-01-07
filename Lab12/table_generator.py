@@ -31,9 +31,7 @@ class TableGenerator:
                                 new_item = LR1Item((c, production), 0, b)
                                 if new_item not in s:
                                     is_changing = True
-                                    #s = union(s, [new_item])
-                                    if new_item not in s:
-                                        s.append(new_item)
+                                    s = union(s, [new_item])
 
         return list(set(s))
 
@@ -42,10 +40,8 @@ class TableGenerator:
         for i in s:
             if i.stacktop_position < len(i.production[1]):
                 if i.production[1][i.stacktop_position] == x:
-                    # moved = union(moved, [LR1Item(i.production, i.stacktop_position + 1, i.lookahead)])\
                     new_item = LR1Item(i.production, i.stacktop_position + 1, i.lookahead)
-                    if new_item not in moved:
-                        moved.append(new_item)
+                    moved = union(moved, [new_item])
 
         return self.closure(moved)
 
@@ -124,6 +120,10 @@ if __name__ == "__main__":
     start_s = [LR1Item(kfg.rule_indices[1], 0, None)]
 
     cc = table_generator.build_cc()
+    print("Canonical collection:")
+    for cci in cc:
+        print(cci)
+    print()
     table = table_generator.fill_tables(cc)
     table.write_to_file("output/output12.txt")
 

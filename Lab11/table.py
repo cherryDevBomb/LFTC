@@ -30,8 +30,7 @@ class LRTable:
             out.write(' '.join(column))
             out.write('\n')
         out.write('\n')
-        goto = list(self.goto.items())
-        for tuple in goto[1:]:
-            out.write(str(tuple[0]) + '\n')
-            out.write(' '.join(tuple[1]))
+        for nt, column in self.goto.items():
+            out.write(str(nt) + '\n')
+            out.write(' '.join(column))
             out.write('\n')
