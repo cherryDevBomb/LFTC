@@ -1,4 +1,4 @@
-from Lab7.kfg import KFG
+from Lab7.cfg import CFG
 from Lab8.parse_tree import ParseTree
 from Lab8.node import Node
 from Lab8.token_stream import TokenStream
@@ -6,15 +6,15 @@ from Lab8.token_stream import TokenStream
 
 class Parser:
 
-    def parse(self, token_stream, kfg):
-        root = Node(kfg.start, None)
+    def parse(self, token_stream, cfg):
+        root = Node(cfg.start, None)
         focus = root
         stack = [None]
         word = token_stream.next_word()
         while True:
-            if focus and (focus.value in kfg.non_terminals):
+            if focus and (focus.value in cfg.non_terminals):
                 # pick next rule to expand focus (A -> beta_1, ... , beta_n)
-                next_rule = kfg.production_rules[focus.value][focus.derivation_index]
+                next_rule = cfg.production_rules[focus.value][focus.derivation_index]
                 print("Expanding focus {} with rule {}: {}".format(focus.value, focus.derivation_index, next_rule))
                 focus.derivation_index += 1
                 # check for epsilon
@@ -42,7 +42,7 @@ class Parser:
                     return ParseTree(root)
                 else:
                     # backtracking
-                    while focus and (focus.value not in kfg.non_terminals or focus.derivation_index > len(kfg.production_rules[focus.value]) - 1):
+                    while focus and (focus.value not in cfg.non_terminals or focus.derivation_index > len(cfg.production_rules[focus.value]) - 1):
                         print("BACKTRACKING: return to parent {}".format(focus.parent))
                         parent = focus.parent
                         # input contains syntax error
@@ -70,12 +70,12 @@ class Parser:
 
 
 if __name__=="__main__":
-    kfg = KFG()
-    kfg.read("input/input_kfg10.txt")
+    cfg = CFG()
+    cfg.read("input/input_cfg10.txt")
 
     token_str = TokenStream()
     token_str.from_file("input/input10.txt")
 
     parser = Parser()
-    tree = parser.parse(token_str, kfg)
-    tree.export_as_json(kfg)
+    tree = parser.parse(token_str, cfg)
+    tree.export_as_json(cfg)

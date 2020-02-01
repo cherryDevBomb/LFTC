@@ -1,14 +1,14 @@
 from Lab11.table import LRTable
-from Lab7.kfg import KFG
+from Lab7.cfg import CFG
 from Lab8.token_stream import TokenStream
 
 
 class LR1:
 
-    def __init__(self, kfg, table):
-        self.kfg = kfg
+    def __init__(self, cfg, table):
+        self.cfg = cfg
         self.table = table
-        kfg.compute_rule_indices()
+        cfg.compute_rule_indices()
 
     def parse(self, token_stream):
         stack = [0]
@@ -21,7 +21,7 @@ class LR1:
             if self.table.action[word][state][0] == 'r':
                 print('Action: ' + self.table.action[word][state])
                 rule_index = int(self.table.action[word][state][1:])
-                production = self.kfg.rule_indices[rule_index]
+                production = self.cfg.rule_indices[rule_index]
                 for i in range(2 * len(production[1])):
                     stack.pop()
                 state = stack[-1]
@@ -45,8 +45,8 @@ class LR1:
 
 
 if __name__ == "__main__":
-    kfg = KFG()
-    kfg.read("input/input_kfg11.txt")
+    cfg = CFG()
+    cfg.read("input/input_cfg11.txt")
 
     table = LRTable()
     table.from_file("input/table.txt")
@@ -54,5 +54,5 @@ if __name__ == "__main__":
     token_str = TokenStream()
     token_str.from_file("input/input11.txt")
 
-    lr_1_parser = LR1(kfg, table)
+    lr_1_parser = LR1(cfg, table)
     lr_1_parser.parse(token_str)

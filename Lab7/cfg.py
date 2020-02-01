@@ -3,7 +3,7 @@ import itertools
 from Lab7.utils import difference, union, lists_differ
 
 
-class KFG:
+class CFG:
     def __init__(self):
         self.start = None
         self.terminals = []
@@ -90,8 +90,8 @@ class KFG:
             for rule in rule_list:
                 if len(rule) > 1:
                     rhs_number_of_non_terminals = sum(1 for elem in rule if elem in self.non_terminals)
-                    # more than one non-terminal in the right hand side of rule
                     if rhs_number_of_non_terminals > 1:
+                        # more than one non-terminal in the right hand side of rule
                         return False
                     else:
                         rhs_non_terminal = next((elem for elem in rule if elem in self.non_terminals), None)
@@ -102,11 +102,11 @@ class KFG:
                             left_flag = True
                         elif position_of_non_terminal == len(rule) - 1:
                             right_flag = True
-                        # non-terminal in the middle of rule
                         else:
+                            # non-terminal in the middle of rule
                             return False
-                    # non-terminals are placed in different sides of rules
                     if left_flag and right_flag:
+                        # non-terminals are placed in different sides of rules
                         return False
 
         return True
@@ -184,7 +184,7 @@ class KFG:
             rules = self.production_rules[non_terminal]
             if len(rules) > 1:
                 for i in range(len(rules) - 1):
-                    for j in range(i + 1, len(rules) - 1):
+                    for j in range(i + 1, len(rules)):
                         if any(elem in self.first_plus(non_terminal, rules[i]) for elem in self.first_plus(non_terminal, rules[j])):
                             return False
         return True
@@ -249,17 +249,17 @@ class KFG:
 
 if __name__ == "__main__":
     # to test FIRST and FOLLOW sets:
-    kfg = KFG()
-    kfg.read("input/input_kfg9.txt")
+    cfg = CFG()
+    cfg.read("input/input_cfg11.txt")
 
-    kfg.first_sets = kfg.compute_first_sets()
-    print("First sets are: " + str(kfg.first_sets))
-    kfg.follow_sets = kfg.compute_follow_sets()
-    print("Follow sets are: " + str(kfg.follow_sets))
-    print("KFG is LL(1)") if kfg.is_LL1() else print("KFG is not LL(1)")
+    cfg.first_sets = cfg.compute_first_sets()
+    print("First sets are: " + str(cfg.first_sets))
+    cfg.follow_sets = cfg.compute_follow_sets()
+    print("Follow sets are: " + str(cfg.follow_sets))
+    print("CFG is LL(1)") if cfg.is_LL1() else print("CFG is not LL(1)")
 
     # to test elimination of left recursion
-    # kfg = KFG()
-    # kfg.read("input/input8.txt")
-    # kfg.eliminate_left_recursion()
-    # kfg.write("output/output8.txt")
+    cfg = CFG()
+    cfg.read("input/input8.txt")
+    cfg.eliminate_left_recursion()
+    cfg.write("output/output8.txt")

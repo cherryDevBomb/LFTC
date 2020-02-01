@@ -25,4 +25,3 @@ class TokenStream:
 
     def push_front(self, number):
         self.index -= number
-

@@ -1,40 +1,40 @@
-from Lab7.kfg import KFG
+from Lab7.cfg import CFG
 from Lab8.token_stream import TokenStream
 
 
 class LL1:
 
-    def __init__(self, kfg):
-        kfg.first_sets = kfg.compute_first_sets()
-        kfg.follow_sets = kfg.compute_follow_sets()
-        if not kfg.is_LL1():
+    def __init__(self, cfg):
+        cfg.first_sets = cfg.compute_first_sets()
+        cfg.follow_sets = cfg.compute_follow_sets()
+        if not cfg.is_LL1():
             raise ValueError("The grammar should be LL1")
-        self.kfg = kfg
+        self.cfg = cfg
 
     def parse(self, token_stream):
         table = self.create_table()
         self.print_table(table)
 
-        stack = [None, kfg.start]
+        stack = [None, cfg.start]
         word = token_stream.next_word()
-        focus = kfg.start
+        focus = cfg.start
         print("Current word is: " + str(word))
 
         while True:
-            # successfully parsed input
             if focus is None and word is None:
+                # successfully parsed input
                 return True
-            elif focus in kfg.terminals or focus is None:
-                # focus matches word
+            elif focus in cfg.terminals or focus is None:
                 if focus == word.category:
+                    # focus matches word
                     stack.pop()
                     word = token_stream.next_word()
                     print("Current word is: " + str(word))
                 else:
                     print("Input cannot be parsed.")
                     return False
-            # focus is a non-terminal
             else:
+                # focus is a non-terminal
                 w = word.category if word is not None else None
                 if table[focus][w] != "err":
                     beta = table[focus][w]
@@ -49,23 +49,21 @@ class LL1:
                     return False
             focus = stack[-1]
 
-
-
     def create_table(self):
         table = {}
 
-        for non_terminal in self.kfg.non_terminals:
+        for non_terminal in self.cfg.non_terminals:
             table[non_terminal] = {}
-            for terminal in self.kfg.terminals:
+            for terminal in self.cfg.terminals:
                 if terminal != "EPSILON":
                     table[non_terminal][terminal] = "err"
             table[non_terminal][None] = "err"
 
-            for beta in self.kfg.production_rules[non_terminal]:
-                for terminal_w in self.kfg.first_plus(non_terminal, beta):
+            for beta in self.cfg.production_rules[non_terminal]:
+                for terminal_w in self.cfg.first_plus(non_terminal, beta):
                     if terminal_w != "EPSILON":
                         table[non_terminal][terminal_w] = beta
-                if None in self.kfg.first_plus(non_terminal, beta):
+                if None in self.cfg.first_plus(non_terminal, beta):
                     table[non_terminal][None] = beta
 
         return table
@@ -79,11 +77,11 @@ class LL1:
 
 
 if __name__ == "__main__":
-    kfg = KFG()
-    kfg.read("input/input_kfg9.txt")
+    cfg = CFG()
+    cfg.read("input/input_cfg9.txt")
 
     token_str = TokenStream()
     token_str.from_file("input/input9.txt")
 
-    ll_1_parser = LL1(kfg)
+    ll_1_parser = LL1(cfg)
     ll_1_parser.parse(token_str)
