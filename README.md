@@ -2,7 +2,7 @@
 
 🖨️ Formal Languages and Compiler Design Uni Laboratory tasks
 
-1. Simple scanner for the PL/0 language
+\1. Simple scanner for the PL/0 language
 2. Finite Automata
 3. Automata Conversion from NFA to DFA
 4. DFA minimization usign the Hopcroft algorithm
