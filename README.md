@@ -14,7 +14,7 @@
 
 7) Context Free Grammar
 
-8)Leftmost Top-Down Parser and building of an Abstract Syntax Tree
+8) Leftmost Top-Down Parser and building of an Abstract Syntax Tree
 
 9) FIRST and FOLLOW sets for a CFG
 
